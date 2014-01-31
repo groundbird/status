@@ -9,7 +9,7 @@ from numpy import loadtxt
 import subprocess as sp
 import pytz
 
-@route('/:name')
+@route('/dev/:name')
 def status_of_gb(name='status'):
     fnameHe10 = '/home/gb/public_html/gbmonitor/he10/data/now'
     dictTemp = {'Time':0, 'He3U Head':8, 'He3I Head':9, 'He4 Head':10}
@@ -38,9 +38,9 @@ def status_of_gb(name='status'):
     ts = int(stat(argv[0]).st_mtime)
     mod = datetime.fromtimestamp(ts, tz=pytz.timezone('Asia/Tokyo'))
     update = []
-    for line in open('/home/hikaru/public_html/dev/status_update.txt', 'r'): update.append(line)
+    for line in open('/home/hikaru/public_html/status/dev/status_update_dev.txt', 'r'): update.append(line)
 
-    return template('status', now=now, imgTemp=imgTemp, rows=data, mod=mod, lists=update)
+    return template('status_dev', now=now, imgTemp=imgTemp, rows=data, mod=mod, lists=update)
 
 if __name__ == '__main__':
-    run(host='ahiru.kek.jp', port=8080, debug=True, reloader=True)
+    run(host='ahiru.kek.jp', port=8081, debug=True, reloader=True)

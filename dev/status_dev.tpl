@@ -17,8 +17,8 @@ $(function(){
 });
 </script>
 </head>
-<body>
 
+<body>
 <h1>Status of GroundBIRD</h1>
 
 <h2>Temperature (He-10 Cooler)</h2>
