@@ -9,7 +9,7 @@ from numpy import loadtxt
 import subprocess as sp
 import pytz
 
-@route('/dev/:name')
+@route('/:name')
 def status_of_gb(name='status'):
     fnameHe10 = '/home/gb/public_html/gbmonitor/he10/data/now'
     dictTemp = {'Time':0, 'He3U Head':8, 'He3I Head':9, 'He4 Head':10}
