@@ -16,7 +16,10 @@ def status_plot(datfileTemp, datfileCurr, lastN):
     tsTemp = loadtxt(datfileTemp, usecols=(1,))
     tsCurr = loadtxt(datfileCurr, usecols=(1,))
     lastN = int(lastN)
-    if len(tsCurr) < lastN: lastN = len(tsCurr)
+
+    if (len(tsTemp) > len(tsCurr)) and (lastN > len(tsCurr)): lastN = len(tsCurr)
+    if (len(tsCurr) > len(tsTemp)) and (lastN > len(tsTemp)): lastN = len(tsTemp)
+
     datesTemp = [datetime.fromtimestamp(t) for t in tsTemp[-lastN:]]
     datesCurr = [datetime.fromtimestamp(t) for t in tsCurr[-lastN:]]
     fig = figure(figsize=(12, 8))
