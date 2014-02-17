@@ -17,7 +17,11 @@ def status_of_gb(name='status'):
     tail = t.stdout.readline().split()
     now = []
     for v in sorted(dictTemp.values()): now.append(tail[v])
-    imgTemp = 'http://ahiru.kek.jp/~hikaru/temp.png'
+    img = ['temp_600', 'temp_14400', 'temp_100800', 'temp_477861']
+    imgLinks = []
+    for i in img:
+        imgLink = 'http://ahiru.kek.jp/~hikaru/pictures/%s.png' % i
+        imgLinks.append(imgLink)
     fnameMonitor = '/home/hikaru/gbmonitor/data/latest'
     data = loadtxt(fnameMonitor, dtype={'names':('Time',
                                               'He3U Head',
@@ -38,9 +42,9 @@ def status_of_gb(name='status'):
     ts = int(stat(argv[0]).st_mtime)
     mod = datetime.fromtimestamp(ts, tz=pytz.timezone('Asia/Tokyo'))
     update = []
-    for line in open('/home/hikaru/public_html/dev/status_update.txt', 'r'): update.append(line)
+    for line in open('/home/hikaru/public_html/status/dev/status_update_dev.txt', 'r'): update.append(line)
 
-    return template('status', now=now, imgTemp=imgTemp, rows=data, mod=mod, lists=update)
+    return template('status_dev', now=now, img=imgLinks, rows=data, mod=mod, lists=update)
 
 if __name__ == '__main__':
     run(host='ahiru.kek.jp', port=8080, debug=True, reloader=True)

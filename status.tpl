@@ -11,14 +11,14 @@
 $(function(){
   $('#tempHist').tablefix({
     width: 1024,
-    height: 256,
+    height: 300,
     fixRows: 2
   });
 });
 </script>
 </head>
-<body>
 
+<body>
 <h1>Status of GroundBIRD</h1>
 
 <h2>Temperature (He-10 Cooler)</h2>
@@ -34,7 +34,14 @@ $(function(){
   %end
   </tr>
 </table>
-<p><a href="{{imgTemp}}"><img src="{{imgTemp}}" width=640></a></p>
+
+<p>Duration of one hour/day/week/month:</p>
+<p>
+%for i in img:
+  <a href="{{i}}"><img src="{{i}}" width=240></a>
+%end
+</p>
+
 
 <h3>Temperature History</h3>
 

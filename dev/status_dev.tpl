@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="http://ahiru.kek.jp/~hikaru/css/style.css">
+<link rel="stylesheet" href="http://ahiru.kek.jp/~hikaru/status/dev/style_dev.css">
 <script src="http://ahiru.kek.jp/~hikaru/js/jquery-1.6.1.min.js"></script>
 <script src="http://ahiru.kek.jp/~hikaru/js/jquery.tablefix_1.0.1.js"></script>
 <title>Status of GroundBIRD</title>
@@ -11,7 +12,7 @@
 $(function(){
   $('#tempHist').tablefix({
     width: 1024,
-    height: 256,
+    height: 300,
     fixRows: 2
   });
 });
@@ -34,7 +35,14 @@ $(function(){
   %end
   </tr>
 </table>
-<p><a href="{{imgTemp}}"><img src="{{imgTemp}}" width=640></a></p>
+
+<p>Duration of one hour/day/week/month:</p>
+<p>
+%for i in img:
+  <a href="{{i}}"><img src="{{i}}" width=240></a>
+%end
+</p>
+
 
 <h3>Temperature History</h3>
 
