@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sys import argv, stdout
+from os import system
 from time import sleep, strftime
 from numpy import loadtxt
 from datetime import datetime
@@ -77,15 +78,18 @@ def status_plot(datfileTemp, datfileCurr, lastN):
     legAdc.get_frame().set_alpha(0.5)
     legAdcSW = ax3.legend(loc='upper left')
     legAdcSW.get_frame().set_alpha(0.5)
-    savefig('/home/hikaru/public_html/pictures/temp_%s.png' % lastN)
-    # show()
+    savefig('/home/hikaru/public_html/pictures/temp.png')
     pass
 
 if __name__ == '__main__':
     datfileTemp = argv[1]
     datfileCurr = argv[2]
-    lastN = [600, 600*24, 600*24*7, 600*24*7*30] # [1 hour, 1 day, 1 week, 1 month]
+    lastN = [600, 600*24, 600*24*7, 600*24*30] # [1 hour, 1 day, 1 week, 1 month]
+    i = 0
     for n in lastN:
         status_plot(datfileTemp, datfileCurr, n)
+        path = '/home/hikaru/public_html/pictures'
+        system('mv %s/temp.png %s/temp%d.png' % (path, path, i))
         print '%s: update figure' % strftime('%Y-%m-%d %H:%M:%S')
+        i += 1
         pass

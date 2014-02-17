@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template
-from os import listdir, stat
+from os import listdir, stat, path
 from sys import argv
+from glob import glob
 from datetime import datetime
 from numpy import loadtxt
 import subprocess as sp
@@ -17,10 +18,10 @@ def status_of_gb(name='status'):
     tail = t.stdout.readline().split()
     now = []
     for v in sorted(dictTemp.values()): now.append(tail[v])
-    img = ['temp_600', 'temp_14400', 'temp_100800', 'temp_477861']
+    img = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp*.png')]
     imgLinks = []
-    for i in img:
-        imgLink = 'http://ahiru.kek.jp/~hikaru/pictures/%s.png' % i
+    for i in sorted(img):
+        imgLink = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
         imgLinks.append(imgLink)
     fnameMonitor = '/home/hikaru/gbmonitor/data/latest'
     data = loadtxt(fnameMonitor, dtype={'names':('Time',
@@ -44,7 +45,7 @@ def status_of_gb(name='status'):
     update = []
     for line in open('/home/hikaru/public_html/status/dev/status_update_dev.txt', 'r'): update.append(line)
 
-    return template('status_dev', now=now, img=imgLinks, rows=data, mod=mod, lists=update)
+    return template('status', now=now, img=imgLinks, rows=data, mod=mod, lists=update)
 
 if __name__ == '__main__':
     run(host='ahiru.kek.jp', port=8080, debug=True, reloader=True)
