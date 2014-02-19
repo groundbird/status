@@ -71,7 +71,8 @@ def status_plot(datfileTemp, datfileCurr, lastN):
         currSW.append(loadtxt(datfileCurr, usecols=(v,)))
         ax3.plot(datesCurr, currSW[i][-lastN:], label=k)
         i += 1
-    xfmt = DateFormatter('%Y-%m-%d\n%H:%M:%S')
+    # xfmt = DateFormatter('%Y-%m-%d\n%H:%M:%S')
+    xfmt = DateFormatter('%m/%d\n%H:%M')
     gca().xaxis.set_major_formatter(xfmt)
     setp(ax1.get_xticklabels(), visible=False)
     setp(ax2.get_xticklabels(), visible=False)

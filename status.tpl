@@ -35,7 +35,7 @@ $(function(){
   </tr>
 </table>
 
-<p>Duration of one hour/day/week/month:</p>
+
 <p>
 %for i in img:
   <a href="{{i}}"><img src="{{i}}" width=240></a>
