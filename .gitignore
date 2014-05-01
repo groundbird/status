@@ -1,5 +1,4 @@
 *~
-
-# Image file
 *.png
 *.jpg
+*.pyc

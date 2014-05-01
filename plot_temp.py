@@ -51,11 +51,17 @@ def status_plot(datfileTemp, datfileCurr, lastN):
                'He4 SW':5, 'He3I SW':6, 'He3U SW':7}
     i = 0
     temp = []
+    # lines = ['-', '--', ':']
+    # linecycler = cycle(lines)
     for k, v in sorted(dictTemp.items(), key=lambda x: x[1]):
         if k == 'Unix Time': continue
         temp.append(loadtxt(datfileTemp, usecols=(v,)))
         ax1.plot(datesTemp, temp[i][-lastN:], label=k)
         i += 1
+        # ax1.plot(dataTemp,
+        #          loadtxt(datfileTemp, usecols=(v,)),
+        #          next(linecycler),
+        #          label=k)
     i = 0
     currPump = []
     for k, v in sorted(dictCurr.items(), key=lambda x: x[1]):
