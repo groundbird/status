@@ -21,6 +21,8 @@
 : ステータスページの更新情報.
 
 
-## ToDo List
-- Read data more smartly
-- Run status page on port 80
+ToDo
+----
+
+- Read data and plot figure more smartly
+- Run status page on port 80 (Apache)
