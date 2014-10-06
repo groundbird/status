@@ -23,7 +23,8 @@ def tail(fname):
 
 if __name__ == '__main__':
     fname    = argv[1]
-    T_cooled = 0.25
+    # T_cooled = 0.25
+    T_cooled = 0.27
     if tail(fname)[2] < T_cooled: flag = True
     else: flag = False
     cooledDate = []

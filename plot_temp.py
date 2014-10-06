@@ -11,6 +11,43 @@ matplotlib.use('Agg')
 from matplotlib.pyplot import *
 from matplotlib.dates import *
 import  matplotlib.artist as ma
+from itertools import cycle
+
+
+def plot_temp(fname, log=False, period='all'):
+    d = loadtxt(fname, usecols=range(1, 10))
+    dates = [datetime.fromtimestamp(t) for t in d[:,0]]
+
+    if period == 'hour' and len(dates) > 3600:
+        d     = d[-3600:]
+        dates = dates[-3600:]
+    elif period == 'day' and len(dates) > 86400:
+        d     = d[-86400:]
+        dates = dates[-86400:]
+    elif period == 'week' and len(dates) > 604800:
+        d     = d[-604800:]
+        dates = dates[-604800:]
+    elif period == 'month' and len(dates) > 18144000:
+        d     = d[-18144000:]
+        dates = dates[-18144000:]
+    else: pass
+
+    fig, ax = subplots()
+    lines = ['-', '--', ':', '.-']
+    linecycler = cycle(lines)
+    label = ['ch 0', 'ch 1', 'ch 2', 'ch 3', 'ch 4', 'ch 5', 'ch 6', 'ch 7']
+    for i in range(1, 9):
+        ax.plot(dates, d[:,i], next(linecycler), label=label[i-1])
+        pass
+    xfmt = DateFormatter('%m/%d\n%H:%M')
+    ax.xaxis.set_major_formatter(xfmt)
+    ax.grid()
+    if log: ax.set_yscale('log')
+    leg = ax.legend(loc='best')
+    leg.get_frame().set_alpha(0.5)
+    ax.set_ylabel('Temperature [K]')
+    savefig('/home/hikaru/public_html/pictures/temp_GM_%s.png' % period)
+
 
 def status_plot(datfileTemp, datfileCurr, lastN):
     tsTemp = loadtxt(datfileTemp, usecols=(1,))
@@ -77,7 +114,7 @@ def status_plot(datfileTemp, datfileCurr, lastN):
         currSW.append(loadtxt(datfileCurr, usecols=(v,)))
         ax3.plot(datesCurr, currSW[i][-lastN:], label=k)
         i += 1
-    # xfmt = DateFormatter('%Y-%m-%d\n%H:%M:%S')
+
     xfmt = DateFormatter('%m/%d\n%H:%M')
     gca().xaxis.set_major_formatter(xfmt)
     setp(ax1.get_xticklabels(), visible=False)
@@ -103,3 +140,8 @@ if __name__ == '__main__':
         print '%s: update figure' % strftime('%Y-%m-%d %H:%M:%S')
         i += 1
         pass
+
+    # GM Cooler
+    for p in ['hour', 'day', 'week', 'month']:
+        plot_temp('/home/gb/public_html/gbmonitor/temp/data/lastest', log=False, period=p)
+        print '%s: update figure' % strftime('%Y-%m-%d %H:%M:%S')

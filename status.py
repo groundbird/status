@@ -14,9 +14,16 @@ import pytz
 @route('/<name>')
 def status_of_gb(name='status'):
     fnameHe10 = '/home/gb/public_html/gbmonitor/he10/data/now'
+    fnameGM   = '/home/gb/public_html/gbmonitor/temp/data/lastest'
+
     dictTemp = {'Time':0, 'He3U Head':8, 'He3I Head':9, 'He4 Head':10}
-    t = sp.Popen('tail -n 1 %s' % fnameHe10, shell=True, stdout=sp.PIPE)
+
+    t    = sp.Popen('tail -n 1 %s' % fnameHe10, shell=True, stdout=sp.PIPE)
     tail = t.stdout.readline().split()
+    t_GM    = sp.Popen('tail -n 1 %s' % fnameGM, shell=True, stdout=sp.PIPE)
+    tail_GM = t_GM.stdout.readline().split()
+    del tail_GM[1] # delete unixtime
+    
     now = []
     for v in sorted(dictTemp.values()): now.append(tail[v])
     img = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp*.png')]
@@ -45,8 +52,9 @@ def status_of_gb(name='status'):
     ts = int(stat(argv[0]).st_mtime)
     mod = datetime.fromtimestamp(ts, tz=pytz.timezone('Asia/Tokyo'))
     update = []
-    for line in open('/home/hikaru/public_html/status/dev/status_update_dev.txt', 'r'): update.append(line)
-    return template('status', now=now, img=imgLinks, rows=data, mod=mod, lists=update)
+    fnameUpdate = '/home/hikaru/public_html/status/status_update.txt'
+    for line in open(fnameUpdate, 'r'): update.append(line)
+    return template('status', now=now, temp_GM=tail_GM, img=imgLinks, rows=data, mod=mod, lists=update)
 
 if __name__ == '__main__':
     # run(host='ahiru.kek.jp', port=8080, debug=True, reloader=True)

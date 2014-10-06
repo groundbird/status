@@ -10,8 +10,8 @@
 // jquery.tablefix
 $(function(){
   $('#tempHist').tablefix({
-    width: 1024,
-    height: 300,
+    width: 1048,
+    height: 168,
     fixRows: 2
   });
 });
@@ -21,11 +21,11 @@ $(function(){
 <body>
 <h1>Status of GroundBIRD</h1>
 
-<h2>Temperature (He-10 Cooler)</h2>
+<h2>Temperature (He-10)</h2>
 <table>
   <thead>
     <tr id="tempTh">
-      <th>Date</th><th>He3U Head [K]</th><th>He3I Head [K]</th><th>He4 Head [K]</th>
+      <th>Date</th><th>He3U head [K]</th><th>He3I head [K]</th><th>He4 head [K]</th>
     </tr>
   </thead>
   <tr class="center">
@@ -35,15 +35,44 @@ $(function(){
   </tr>
 </table>
 
-
 <p>
-%for i in img:
+%for i in img[:4]:
   <a href="{{i}}"><img src="{{i}}" width=240></a>
 %end
 </p>
 
 
-<h3>Temperature History</h3>
+<h2>Temperature (GM)</h2>
+<table>
+  <thead>
+    <tr id="tempTh">
+      <th>Date</th>
+      <th>ch. 0 [K]</th>
+      <th>ch. 1 [K]</th>
+      <th>ch. 2 [K]</th>
+      <th>ch. 3 [K]</th>
+      <th>ch. 4 [K]</th>
+      <th>ch. 5 [K]</th>
+      <th>ch. 6 [K]</th>
+      <th>ch. 7 [K]</th>
+    </tr>
+  </thead>
+  <tr class="center">
+  %for v in temp_GM:
+    <td>{{v}}</td>
+  %end
+  </tr>
+</table>
+
+<p>
+  <a href="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_hour.png"><img src="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_hour.png" width=240></a>
+  <a href="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_day.png"><img src="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_day.png" width=240></a>
+  <a href="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_week.png"><img src="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_week.png" width=240></a>
+  <a href="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_month.png"><img src="http://ahiru.kek.jp/~hikaru/pictures/temp_GM_month.png" width=240></a>
+</p>
+
+
+<h2>Temperature History (He-10)</h2>
 
 <table id="tempHist">
   <thead>
@@ -79,6 +108,6 @@ $(function(){
 </div>
 
 <hr>
-<p class="update">&copy; 2013 The GroundBIRD Experiment</p>
+<p class="update">&copy; 2014 The GroundBIRD Experiment</p>
 </bod>
 </html>
