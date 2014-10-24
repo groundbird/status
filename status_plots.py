@@ -10,25 +10,29 @@ import numpy as np
 import time
 import os
 import itertools as it
+import glob
+import pytz
+
 
 def plot_4periods(tod, savedir, figname):
     files = '%s/%s*.png' % (savedir, figname)
-    if os.path.exists(files):
+    if len(glob.glob(files)):
         os.system('rm %s' % files)
     period = {'0_hour' : 60*60,    
               '1_day'  : 60*60*24,  
               '2_week' : 60*60*24*7, 
               '3_month': 60*60*24*30}
     for k, v in sorted(period.items()):
-        if v > len(tod): continue
+        if v/10 > len(tod): continue
         if k == '0_hour' : rules = 'S'
         if k == '1_day'  : rules = 'T'
         if k == '2_week' : rules = 'H'
         if k == '3_month': rules = 'H'
-        tod.tail(v).resample(rules).plot(rot=0)
-        xfmt = md.DateFormatter('%m/%d\n%H:%M')
-        plt.gca().xaxis.set_major_formatter(xfmt)
-        plt.gca().legend(loc='upper left')
+        ax = tod.tail(v).resample(rules).plot(rot=0)
+        xfmt = md.DateFormatter('%m/%d\n%H:%M', tz=pytz.timezone('Asia/Tokyo'))
+        ax.xaxis.set_major_formatter(xfmt)
+        leg = ax.legend(loc='upper left')
+        leg.get_frame().set_alpha(0.5)
         plt.savefig('%s/%s_%s.png' % (savedir, figname, k))
 
     

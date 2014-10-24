@@ -83,7 +83,7 @@ $(function(){
 </p>
 
 <!-- Test 2014-10-20 -->
-<p>指定した時間の各温度をプロットします。時間は「2014 年 10 月 20 日 15 時 00 分」であれば、「2014-10-20-1500」とします。各末尾は省略可能です。<br>（注意）プロットするまでに 1 分以上かかる場合があります。</p>
+<p>指定した時間の各温度をプロットします。時間は「2014 年 10 月 20 日 15 時 00 分」であれば、「2014-10-20-1500」とします。各末尾は省略可能です。<br>（注意）プロットするまでに 1 分以上かかる場合があります。自分でデータを料理したい人は<a href="http://ahiru.kek.jp/~hikaru/status/usage_todlib.html">こちら</a>を参照してください。</p>
 <form method="GET" action="/status#plot">
 <p>start: </code><input type="text" value="2014-10-20-15" name="start"> end: <input type="text" value="2014-10-20-16" name="end"> <input type="submit" value="Plot"></p>
 </form>
@@ -133,5 +133,5 @@ $(function(){
 
 <hr>
 <p class="update">&copy; 2014 The GroundBIRD Experiment</p>
-</bod>
+</body>
 </html>
