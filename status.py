@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bottle import route, run, template, debug
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.dates as md
+from bottle import route, run, template, debug, request
 from os import listdir, stat, path
 from sys import argv
 from glob import glob
@@ -10,9 +14,11 @@ from numpy import loadtxt
 # from paste import httpserver
 import subprocess as sp
 import pytz
+import todlib
+
 
 @route('/<name>')
-def status_of_gb(name='status'):
+def status_of_gb(name='status', method='GET'):
     fnameHe10 = '/home/gb/public_html/gbmonitor/he10/data/now'
     fnameGM   = '/home/gb/public_html/gbmonitor/temp/data/lastest'
 
@@ -26,11 +32,16 @@ def status_of_gb(name='status'):
     
     now = []
     for v in sorted(dictTemp.values()): now.append(tail[v])
-    img = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp*.png')]
+    img = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp[0-3].png')]
     imgLinks = []
     for i in sorted(img):
         imgLink = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
         imgLinks.append(imgLink)
+    imgGM = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp_GM*.png')]
+    imgLinksGM = []
+    for i in sorted(imgGM):
+        imgLinkGM = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
+        imgLinksGM.append(imgLinkGM)
     # fnameMonitor = '/home/hikaru/gbmonitor/data/latest'
     fnameMonitor = '/home/hikaru/public_html/status/tempHist.txt'
     data = loadtxt(fnameMonitor, dtype={'names':('Time',
@@ -54,11 +65,26 @@ def status_of_gb(name='status'):
     update = []
     fnameUpdate = '/home/hikaru/public_html/status/status_update.txt'
     for line in open(fnameUpdate, 'r'): update.append(line)
-    return template('status', now=now, temp_GM=tail_GM, img=imgLinks, rows=data, mod=mod, lists=update)
+
+    # test-2014-10-20
+    # 期間取得
+    start = str(request.query.start)
+    end   = str(request.query.end)
+    if start and end:
+        savedir = '/home/hikaru/public_html/pictures'
+        t = todlib.TOD(fnameGM, range(1, 10))
+        cols = ['ch. '+str(i) for i in range(8)]
+        todall = t.gentod_all(colslabel=cols)
+        todall[start:end].plot(rot=0, title='%s -- %s' % (start, end))
+        xfmt = md.DateFormatter('%m/%d\n%H:%M')
+        plt.gca().xaxis.set_major_formatter(xfmt)
+        plt.gca().legend(loc='upper left')
+        plt.savefig('%s/request.png' % savedir)
+        requestPlot = 'http://ahiru.kek.jp/~hikaru/pictures/request.png'
+    else: requestPlot = None
+    return template('status', now=now, temp_GM=tail_GM, img=imgLinks, imgGM=imgLinksGM, rows=data, mod=mod, lists=update, requestPlot=requestPlot)
 
 if __name__ == '__main__':
-    # run(host='ahiru.kek.jp', port=8080, debug=True, reloader=True)
-    run(host='0.0.0.0', port=8080, debug=True, reloader=True)
-    # debug(True)
-    # run(reloader=True)
-    # run(server='cgi')
+    # run(host='0.0.0.0', port=8080, debug=True, reloader=True)
+    run(server='paste', host='0.0.0.0', port=8080, debug=True, reloader=True)
+    # run(server='paste', host='130.87.195.83', port=80, debug=True, reloader=True)
