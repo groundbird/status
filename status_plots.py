@@ -37,7 +37,7 @@ def plot_4periods(tod, savedir, figname):
 
     
 if __name__ == '__main__':
-    tod_GM = todlib.TOD('/home/gb/public_html/gbmonitor/temp/data/lastest',
-                        usecols=range(1, 10))
-    plot_4periods(tod_GM.gentod(colslabel=['ch. '+str(i) for i in range(8)]),
-                  '/home/hikaru/public_html/pictures', 'temp_GM')
+    todGM = todlib.gentod('/home/gb/public_html/gbmonitor/temp/data/lastest',
+                          usecols=range(1, 10),
+                          colslabel=['ch. '+str(i) for i in range(8)])
+    plot_4periods(todGM, '/home/hikaru/public_html/pictures', 'temp_GM')

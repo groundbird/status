@@ -72,19 +72,18 @@ def status_of_gb(name='status', method='GET'):
     end   = str(request.query.end)
     if start and end:
         savedir = '/home/hikaru/public_html/pictures'
-        t = todlib.TOD(fnameGM, range(1, 10))
-        cols = ['ch. '+str(i) for i in range(8)]
-        todall = t.gentod_all(colslabel=cols)
-        todall[start:end].plot(rot=0, title='%s -- %s' % (start, end))
-        xfmt = md.DateFormatter('%m/%d\n%H:%M')
-        plt.gca().xaxis.set_major_formatter(xfmt)
-        plt.gca().legend(loc='upper left')
+        todAll = todlib.gentod_all('/home/gb/public_html/gbmonitor/temp/data/',
+                                   usecols=range(1, 10),
+                                   colslabel=['ch. '+str(i) for i in range(8)])
+        ax = todAll[start:end].plot(title='%s -- %s' % (start, end))
+        leg = ax.legend(loc='upper left')
+        leg.get_frame().set_alpha(0.5)
         plt.savefig('%s/request.png' % savedir)
         requestPlot = 'http://ahiru.kek.jp/~hikaru/pictures/request.png'
     else: requestPlot = None
-    return template('status', now=now, temp_GM=tail_GM, img=imgLinks, imgGM=imgLinksGM, rows=data, mod=mod, lists=update, requestPlot=requestPlot)
+    return template('status', now=now, temp_GM=tail_GM, img=imgLinks,
+                    imgGM=imgLinksGM, rows=data, mod=mod, lists=update,
+                    requestPlot=requestPlot)
 
 if __name__ == '__main__':
-    # run(host='0.0.0.0', port=8080, debug=True, reloader=True)
     run(server='paste', host='0.0.0.0', port=8080, debug=True, reloader=True)
-    # run(server='paste', host='130.87.195.83', port=80, debug=True, reloader=True)
