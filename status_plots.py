@@ -33,10 +33,13 @@ def plot_4periods(tod, savedir, figname):
         ax.xaxis.set_major_formatter(xfmt)
         leg = ax.legend(loc='upper left')
         leg.get_frame().set_alpha(0.5)
+        if k == '2_week' or k == '3_month': plt.yscale('log')
+        plt.ylabel('Temperature [K]')
         plt.savefig('%s/%s_%s.png' % (savedir, figname, k))
 
     
 if __name__ == '__main__':
+    # GMC
     todGM = todlib.gentod('/home/gb/public_html/gbmonitor/temp/data/lastest',
                           usecols=range(1, 10),
                           colslabel=['ch. '+str(i) for i in range(8)])

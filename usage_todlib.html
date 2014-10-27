@@ -1687,7 +1687,7 @@ div#notebook {
 <h2 id="todlib.tod">todlib.TOD</h2>
 <dl>
 <dt>
-todlib.TOD(filename, usecols=None)
+<i><font color="gray">class</font></i> todlib.TOD(filename, usecols=None)
 </dt>
 <dd>
 <code>filename</code> には処理したいファイル名を指定します。このとき読み込むデータは、1 列目がタイムスタンプになるように、<code>usecols</code> を指定します。
@@ -1829,7 +1829,7 @@ Returns:
 
 <h2 id="notes">Notes</h2>
 <p>TOD クラスは使用するデータのある path と使用する列を引数にとってオブジェクトをつくります。ここでは、LakeShore 218 で取得した 8 チャンネルの温度データを例に TOD クラスの使い方を説明します。</p>
-<h2 id="example">Example</h2>
+<h2 id="examples">Examples</h2>
 <p>LakeShore の温度データ（<code>/home/gb/public_html/gbmonitor/temp/data/lastest</code>）は 10 列の値（時刻, タイムスタンプ, チャンネル 1 の温度, ..., チャンネル 8 の温度）からなります。TOD クラスは 1 列目にタイムスタンプ、2 列目以降をそのときの値（この場合は温度）となるようにデータを指定します。いまの場合は 1 列目以降の列を <code>usecols</code> に指定します。また、各チャンネルを ch. 0, ch. 1, ..., ch. 7 とラベル付けしておきます。</p>
 </div>
 </div>
