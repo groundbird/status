@@ -22,10 +22,10 @@ def plot_4periods(tod, savedir, figname):
               '1_day'  : 60*60*24,  
               '2_week' : 60*60*24*7, 
               '3_month': 60*60*24*30}
-    v_previous = None
+    v_tmp = None
     for k, v in sorted(period.items()):
-        if v_previous:
-            if v_previous > len(tod): continue
+        if v_tmp:
+            if v_tmp > len(tod): continue
         # if v/5 > len(tod): continue
         if k == '0_hour' : rules = 'S'
         if k == '1_day'  : rules = 'T'
@@ -39,7 +39,7 @@ def plot_4periods(tod, savedir, figname):
         if k == '2_week' or k == '3_month': plt.yscale('log')
         plt.ylabel('Temperature [K]')
         plt.savefig('%s/%s_%s.png' % (savedir, figname, k))
-        v_previous = v
+        v_tmp = v
 
     
 if __name__ == '__main__':
