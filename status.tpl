@@ -134,12 +134,12 @@ $(document).ready(function() {
 
 
 <div class="update" align="right">
-<p>Last Modified: {{ mod }}</p>
+<p class="update-li">Last Modified: {{ mod }}</p>
 
-<p>Updates:</p>
+<p class="update-li">Updates:</p>
 <ul class="update-log">
 %for l in lists:
-  <li>{{ l }}</li>
+  <li class="update-li">{{ l }}</li>
 %end
 </ul>
 </div>
