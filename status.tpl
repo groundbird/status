@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 <table class="info-header">
   <tr><td>Data:</td><td id="now"></td></tr>
-  <tr><td>Comment:</td><td>各温度表示は 1 分毎、プロットは 10 分毎に更新されます。プロットは順に、1 (時間|日|週間|ヶ月) の期間です。</td></tr>
+  <tr><td>Comment:</td><td>各温度表示は 1 分毎、プロットは 10 分毎に更新されます。プロットする期間は、順に、1 (時間|日|週間|ヶ月) です。</td></tr>
 </table>
 
 <h2>Temperature (He-10)</h2>
@@ -144,7 +144,7 @@ $(document).ready(function() {
 </ul>
 </div>
 
-<hr>
+<hr class="update-hr">
 <p class="update">&copy; 2014 The GroundBIRD Experiment</p>
 </body>
 </html>
