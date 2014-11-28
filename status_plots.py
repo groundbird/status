@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import matplotlib
-matplotlib.use('Agg')
+import matplotlib as mpl
+mpl.use('Agg')
 import todlib
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
@@ -14,6 +13,7 @@ import glob
 import pytz
 import pandas as pd
 
+mpl.rcParams['figure.autolayout'] = True
 
 def plot_4periods(tod, savedir, figname):
     files = '%s/%s*.png' % (savedir, figname)
@@ -26,7 +26,6 @@ def plot_4periods(tod, savedir, figname):
     for k, v in sorted(period.items()):
         if v_tmp:
             if v_tmp > len(tod): continue
-        # if v/5 > len(tod): continue
         if k == '0_hour' : rules = 'S'
         if k == '1_day'  : rules = 'T'
         if k == '2_week' : rules = 'H'
@@ -36,7 +35,7 @@ def plot_4periods(tod, savedir, figname):
         ax.xaxis.set_major_formatter(xfmt)
         leg = ax.legend(loc='upper left')
         leg.get_frame().set_alpha(0.5)
-        if k == '2_week' or k == '3_month': plt.yscale('log')
+        plt.yscale('log')
         plt.ylabel('Temperature [K]')
         plt.savefig('%s/%s_%s.png' % (savedir, figname, k))
         v_tmp = v
