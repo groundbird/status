@@ -32,7 +32,7 @@ $(document).ready(function() {
   <tr><td>Comment:</td><td>各温度表示は 1 分毎、プロットは 10 分毎に更新されます。プロットする期間は、順に、1 (時間|日|週間|ヶ月) です。</td></tr>
 </table>
 
-<h2>Temperature</h2>
+<h2>Temperatures</h2>
 
 <h3>He-10</h3>
 
@@ -142,6 +142,6 @@ $(document).ready(function() {
 </div>
 
 <hr class="update-hr">
-<p class="update">&copy; 2014 The GroundBIRD Experiment</p>
+<p class="update">&copy; 2014 The GroundBIRD Experiment. Powered by <a href="http://bottlepy.org/">Bottle</a>.</p>
 </body>
 </html>
