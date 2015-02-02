@@ -11,7 +11,7 @@
 <script type="text/javascript">
 // jquery.tablefix
 $(function() {
-  $('#tempHist').tablefix({width: 1000, height: 151, fixRows: 1});
+  $('#tempHist').tablefix({width: 1000, height: 152, fixRows: 1});
 });
 
 // jquery.todate
@@ -38,25 +38,31 @@ $(document).ready(function() {
 
 <table>
   <thead>
-    <tr><th rowspan="2">Date</th><th colspan="3">Temperature [K]</th></tr>
+    <tr><th rowspan="3">Date</th><th colspan="10">Temperature [K]</th></tr>
+    <tr><th colspan="3">Head</th><th>FB</th><th colspan="3">Pump</th><th colspan="3">SW</th></tr>
     <tr id="tempTh">
-      <th>He3U head</th>
-      <th>He3I head</th>
-      <th>He4 head</th>
+      <th>He3U</th>
+      <th>He3I</th>
+      <th>He4</th>
+      <th>He4</th>
+      <th>He4</th>
+      <th>He3I</th>
+      <th>He3U</th>
+      <th>He4</th>
+      <th>He3I</th>
+      <th>He3U</th>
     </tr>
   </thead>
   <tr class="center">
-  %for v in now:
-    <td>{{ v }}</td>
+  %for v in temp_He10:
+    %if len(v) > 7:
+      <td class="tempTd">{{ v }}</td>
+    %else:
+      <td class="tempTd">{{ "{0:.3f}".format(float(v)) }}</td>
+    %end
   %end
   </tr>
 </table>
-
-<p>
-%for i in img[:4]:
-  <a href="{{ i }}"><img src="{{ i }}" width=240 class="grow"></a>
-%end
-</p>
 
 <h3>PTC</h3>
 
@@ -76,7 +82,11 @@ $(document).ready(function() {
   </thead>
   <tr class="center">
   %for v in temp_GM:
-    <td class="tempTd">{{v}}</td>
+    %if len(v) > 7:
+      <td class="tempTd">{{ v }}</td>
+    %else:
+      <td class="tempTd">{{ "{0:.3f}".format(float(v)) }}</td>
+    %end
   %end
   </tr>
 </table>

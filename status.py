@@ -24,6 +24,10 @@ def status_of_gb(name='status', method='GET'):
     dictTemp = {'Time':0, 'He3U Head':8, 'He3I Head':9, 'He4 Head':10}
     t    = sp.Popen('tail -n 1 %s' % fnameHe10, shell=True, stdout=sp.PIPE)
     tail = t.stdout.readline().split()
+    del tail[1:3] # delete unixtime and ":HD:"
+    del tail[4]   # delete ":PU:"
+    del tail[11:] # delete > 13
+
     t_GM    = sp.Popen('tail -n 1 %s' % fnameGM, shell=True, stdout=sp.PIPE)
     tail_GM = t_GM.stdout.readline().split()
     del tail_GM[1] # delete unixtime
@@ -80,7 +84,7 @@ def status_of_gb(name='status', method='GET'):
     else: requestPlot = None
     return template('status', now=now, temp_GM=tail_GM, img=imgLinks,
                     imgGM=imgLinksGM, rows=data, mod=mod, lists=update,
-                    requestPlot=requestPlot)
+                    requestPlot=requestPlot,temp_He10=tail)
 
 if __name__ == '__main__':
     run(server='paste', host='0.0.0.0', port=8080, debug=True, reloader=True)
