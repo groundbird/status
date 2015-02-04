@@ -41,12 +41,12 @@ def plot_4periods(tod, savedir, figname, yscale='log', mode='GM'):
         if k == '2_week' : rules = 'H'
         if k == '3_month': rules = 'H'
 
-        if mode == 'He10':
-            lines = ['-', '-', '-', '--', '-.', '-.', '-.', ':', ':', ':']
-        else:
-            lines = ['-', '--', '-.', ':']*2
+        # if mode == 'He10':
+        #     lines = ['-', '-', '-', '--', '-.', '-.', '-.', ':', ':', ':']
+        # else:
+        #     lines = ['-', '--', '-.', ':']*2
 
-        ax = tod.tail(v).resample(rules).plot(rot=0, style=lines)
+        ax = tod.tail(v).resample(rules).plot(rot=0)
         xfmt = md.DateFormatter('%m/%d\n%H:%M', tz=pytz.timezone('Asia/Tokyo'))
         ax.xaxis.set_major_formatter(xfmt)
         leg = ax.legend(loc='upper left')
