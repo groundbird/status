@@ -36,37 +36,87 @@ $(document).ready(function() {
 
 <h3>He-10</h3>
 
-<table>
+<table cellspacing="0">
   <thead>
-    <tr><th rowspan="3">Date</th><th colspan="10">Temperature [K]</th></tr>
-    <tr><th colspan="3">Head</th><th>FB</th><th colspan="3">Pump</th><th colspan="3">SW</th></tr>
+    <tr>
+      <th rowspan="3">Date</th>
+      <th colspan="10">Temperature [K]</th>
+    </tr>
+    <tr>
+      <th colspan="3" class="left-line">Head</th>
+      <th class="left-line">FB</th>
+      <th colspan="3" class="left-line">Pump</th>
+      <th colspan="3" class="left-line">SW</th>
+    </tr>
     <tr id="tempTh">
-      <th>He3U</th>
+      <th class="left-line">He3U</th>
       <th>He3I</th>
       <th>He4</th>
-      <th>He4</th>
-      <th>He4</th>
+      <th class="left-line">He4</th>
+      <th class="left-line">He4</th>
       <th>He3I</th>
       <th>He3U</th>
-      <th>He4</th>
+      <th class="left-line">He4</th>
       <th>He3I</th>
       <th>He3U</th>
     </tr>
   </thead>
   <tr class="center">
+  % j = 0
   %for v in temp_He10:
     %if len(v) > 7:
       <td class="tempTd">{{ v }}</td>
+    %elif (j == 1 or j == 4 or j == 5 or j == 8):
+      <td class="tempTd left-line">
+	{{ "{0:.3f}".format(float(v)) }}
+      </td>
     %else:
       <td class="tempTd">{{ "{0:.3f}".format(float(v)) }}</td>
     %end
+  %j += 1
   %end
   </tr>
 </table>
 
+<h4>log-scale</h4>
+<p class="fig-align">
+% i = 0
+%for fig in imgHe10_log:
+  %if i == 0:
+  <a href="{{ fig }}">
+    <img src="{{ fig }}" width=240 class="grow grow-left">
+  </a>
+  %elif i == 3:
+  <a href="{{ fig }}">
+    <img src="{{ fig }}" width=240 class="grow grow-right">
+  </a>
+  %else:
+  <a href="{{ fig }}">
+    <img src="{{ fig }}" width=240 class="grow">
+  </a>
+  %end
+  % i += 1
+%end
+</p>
+
+<h4>linear-scale</h4>
+<p class="fig-align">
+% i = 0
+%for fig in imgHe10_linear:
+  %if i == 0:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow grow-left"></a>
+  %elif i == 3:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow grow-right"></a>
+  %else:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow"></a>
+  %end
+  % i += 1
+%end
+</p>
+
 <h3>PTC</h3>
 
-<table>
+<table cellspacing="0">
   <thead>
     <tr><th rowspan="2">Date</th><th colspan="8">Temperature [K]</th></tr>
     <tr id="tempTh">
@@ -91,9 +141,25 @@ $(document).ready(function() {
   </tr>
 </table>
 
+<h4>log-scale</h4>
 <p class="fig-align">
 % i = 0
-%for fig in imgGM:
+%for fig in imgGM_log:
+  %if i == 0:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow grow-left"></a>
+  %elif i == 3:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow grow-right"></a>
+  %else:
+  <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow"></a>
+  %end
+  % i += 1
+%end
+</p>
+
+<h4>linear-scale</h4>
+<p class="fig-align">
+% i = 0
+%for fig in imgGM_linear:
   %if i == 0:
   <a href="{{ fig }}"><img src="{{ fig }}" width=240 class="grow grow-left"></a>
   %elif i == 3:

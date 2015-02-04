@@ -33,16 +33,48 @@ def status_of_gb(name='status', method='GET'):
     del tail_GM[1] # delete unixtime
     now = []
     for v in sorted(dictTemp.values()): now.append(tail[v])
+
     img = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp[0-3].png')]
     imgLinks = []
     for i in sorted(img):
         imgLink = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
         imgLinks.append(imgLink)
+
+    # GMC plots
     imgGM = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp_GM*.png')]
-    imgLinksGM = []
-    for i in sorted(imgGM):
-        imgLinkGM = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
-        imgLinksGM.append(imgLinkGM)
+    imgLinksGM_linear = []
+    imgLinksGM_log = []
+    for p in sorted(imgGM):
+        imgLinkGM = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % p
+        if ('linear' in p):
+            imgLinksGM_linear.append(imgLinkGM)
+        else:
+            imgLinksGM_log.append(imgLinkGM)
+    # imgLinksGM = []
+    # for i in sorted(imgGM):
+    #     imgLinkGM = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
+    #     imgLinksGM.append(imgLinkGM)
+    # imgLinksGM_log    = imgLinksGM[:3]
+    # imgLinksGM_linear = imgLinksGM[3:]
+
+    # He-10 plots
+    imgHe10 = [path.basename(x) for x in glob('/home/hikaru/public_html/pictures/temp_He10*.png')]
+    imgLinksHe10_linear = []
+    imgLinksHe10_log = []
+    for p in sorted(imgHe10):
+        imgLinkHe10 = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % p
+        if ('linear' in p):
+            imgLinksHe10_linear.append(imgLinkHe10)
+        else:
+            imgLinksHe10_log.append(imgLinkHe10)
+    # imgLinksHe10 = []
+    # for i in sorted(imgHe10):
+    #     imgLinkHe10 = 'http://ahiru.kek.jp/~hikaru/pictures/%s' % i
+    #     imgLinksHe10.append(imgLinkHe10)
+    # imgLinksHe10_log    = imgLinksHe10[:3]
+    # imgLinksHe10_linear = imgLinksHe10[3:]
+    
+
     # fnameMonitor = '/home/hikaru/gbmonitor/data/latest'
     fnameMonitor = '/home/hikaru/public_html/status/tempHist.txt'
     data = loadtxt(fnameMonitor, dtype={'names':('Time',
@@ -83,8 +115,12 @@ def status_of_gb(name='status', method='GET'):
         requestPlot = 'http://ahiru.kek.jp/~hikaru/pictures/request.png'
     else: requestPlot = None
     return template('status', now=now, temp_GM=tail_GM, img=imgLinks,
-                    imgGM=imgLinksGM, rows=data, mod=mod, lists=update,
-                    requestPlot=requestPlot,temp_He10=tail)
+                    imgGM_log=imgLinksGM_log,
+                    imgGM_linear=imgLinksGM_linear,
+                    imgHe10_log=imgLinksHe10_log,
+                    imgHe10_linear=imgLinksHe10_linear,
+                    rows=data, mod=mod, lists=update,
+                    requestPlot=requestPlot, temp_He10=tail)
 
 if __name__ == '__main__':
     run(server='paste', host='0.0.0.0', port=8080, debug=True, reloader=True)
