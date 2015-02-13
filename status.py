@@ -11,7 +11,6 @@ from sys import argv
 from glob import glob
 from datetime import datetime
 from numpy import loadtxt
-# from paste import httpserver
 import subprocess as sp
 import pytz
 import todlib
@@ -76,7 +75,7 @@ def status_of_gb(name='status', method='GET'):
     
 
     # fnameMonitor = '/home/hikaru/gbmonitor/data/latest'
-    fnameMonitor = '/home/hikaru/public_html/status/tempHist.txt'
+    fnameMonitor = '/home/hikaru/public_html/status/temp_monitor/tempHist.txt'
     data = loadtxt(fnameMonitor, dtype={'names':('Time',
                                               'He3U Head',
                                               'He3I Head',

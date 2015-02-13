@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DATAFILE=/home/gb/public_html/gbmonitor/he10/data/now
-TEMPHIST=/home/hikaru/public_html/status/tempHist.txt
-CMD=/home/hikaru/public_html/status/monitor.py
+TEMPHIST=/home/hikaru/public_html/status/temp_monitor/tempHist.txt
+CMD=/home/hikaru/public_html/status/temp_monitor/monitor.py
 
 echo "-----------------------------"
 echo "| Monitoring Start!         |"
