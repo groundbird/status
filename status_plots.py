@@ -49,7 +49,7 @@ def plot_4periods(tod, savedir, figname, yscale='log', mode='GM'):
         ax = tod.tail(v).resample(rules).plot(rot=0)
         xfmt = md.DateFormatter('%m/%d\n%H:%M', tz=pytz.timezone('Asia/Tokyo'))
         ax.xaxis.set_major_formatter(xfmt)
-        leg = ax.legend(loc='upper left')
+        leg = ax.legend(loc='upper left', fancybox=True)
         leg.get_frame().set_alpha(0.5)
         plt.yscale(yscale)
         plt.ylabel('Temperature [K]')

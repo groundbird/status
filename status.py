@@ -5,7 +5,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
-from bottle import route, run, template, debug, request
+from bottle import route, run, template, debug, request, default_app
 from os import listdir, stat, path
 from sys import argv
 from glob import glob
@@ -123,3 +123,7 @@ def status_of_gb(name='status', method='GET'):
 
 if __name__ == '__main__':
     run(server='paste', host='0.0.0.0', port=8080, debug=True, reloader=True)
+    # run(host='127.0.0.1', port=8080, debug=True, reloader=True)
+    # app = default_app()
+    # from paste import httpserver
+    # httpserver.serve(app, host='0.0.0.0', port=80)

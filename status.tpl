@@ -69,16 +69,17 @@
   <tr class="center">
   %j = 0
   %for v in temp_He10:
-  %if len(v) > 7:
-  <td class="tempTd">{{ v }}</td>
-  %elif (j == 1 or j == 4 or j == 5 or j == 8):
-  <td class="tempTd left-line">
-    {{ "{0:.3f}".format(float(v)) }}
-  </td>
-  %else:
-  <td class="tempTd">{{ "{0:.3f}".format(float(v)) }}</td>
-  %end
-  %j += 1
+    %if v[0] == '#': break
+    %if len(v) > 7:
+      <td class="tempTd">{{ v }}</td>
+    %elif (j == 1 or j == 4 or j == 5 or j == 8):
+      <td class="tempTd left-line">
+	{{ "{0:.3f}".format(float(v)) }}
+      </td>
+    %else:
+      <td class="tempTd">{{ "{0:.3f}".format(float(v)) }}</td>
+    %end
+    %j += 1
   %end
   </tr>
 </table>
