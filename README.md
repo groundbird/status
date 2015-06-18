@@ -49,6 +49,11 @@ Status of GroundBIRD
 - status_update.txt
 
     更新履歴.
+	
+- auto_reboot.sh
+
+    サーバ再起動時に, status.py と 
+	monitor.sh (正確には `./restart ./mosh.sh` を実効) を起動するスクリプト.
 
 
 ToDo

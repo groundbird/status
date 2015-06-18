@@ -1,0 +1,36 @@
+.container {
+  width: 940px;
+  margin: 0 auto;
+}
+.grid0, .grid1, .grid2, .grid3, .grid4, .grid5, .grid6, .grid7, .grid8, .grid9, .grida, .gridb {
+  float: left;
+  display: inline;
+  margin-left: 0px;
+}
+             
+.grid0 { width:  60px; }
+.grid1 { width: 140px; }
+.grid2 { width: 220px; }
+.grid3 { width: 300px; }
+.grid4 { width: 380px; }
+.grid5 { width: 460px; }
+.grid6 { width: 540px; }
+.grid7 { width: 620px; }
+.grid8 { width: 700px; }
+.grid9 { width: 780px; }
+.grida { width: 860px; }
+.gridb { width: 920px; }
+.first {
+  margin-left: 0;
+  clear: left;
+}
+
+/* clearfix */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
